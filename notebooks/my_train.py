@@ -6,6 +6,8 @@ import matplotlib.pyplot as plt
 import torch.nn as nn
 
 from segment_anything import sam_model_registry, SamAutomaticMaskGenerator, SamPredictor
+from torch import optim
+from segment_anything import SamAutomaticMaskGenerator
 
 # Load your wall cracks dataset using OpenCV or Pillow
 data_dir = "SemanticSegmentationDefects"
@@ -52,6 +54,9 @@ for epoch in range(num_epochs):
     train_loss = 0
     for image_path, label_path in zip(train_images, train_labels):
         image = cv2.imread(image_path)
+        # Instantiate the mask generator
+        mask_generator = SamAutomaticMaskGenerator()
+
         image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
         label = cv2.imread(label_path, cv2.IMREAD_GRAYSCALE)
         label = label / 255 # Normalize the label to 0-1 range
@@ -71,7 +76,7 @@ for epoch in range(num_epochs):
         optimizer.zero_grad()
 
         # Forward pass
-        outputs = model(x)
+        outputs = sam(x)  # Replace "model" with "sam"
 
         # Compute the loss
         loss = criterion(outputs, y)
@@ -83,7 +88,9 @@ for epoch in range(num_epochs):
         train_loss += loss.item()
 
     # Print the average training loss for this epoch
+    checkpoint_path = "path/to/save/checkpoint.pth"
+
     print("Epoch [{}/{}], Loss: {:.4f}".format(epoch+1, num_epochs, train_loss / len(train_images)))
 
     # Save the model checkpoint
-    torch.save(model.state_dict(), checkpoint_path)
+    torch.save(sam.state_dict(), checkpoint_path)
