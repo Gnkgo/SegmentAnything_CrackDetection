@@ -10,7 +10,7 @@ from torch import optim
 from segment_anything import SamAutomaticMaskGenerator
 
 # Load your wall cracks dataset using OpenCV or Pillow
-data_dir = "SemanticSegmentationDefects"
+data_dir = "SemanticsSegmentationScars"
 image_dir = os.path.join(data_dir, "ImageDatastore")
 label_dir = os.path.join(data_dir, "PixelLabelDatastore")
 
@@ -88,7 +88,7 @@ for epoch in range(num_epochs):
         train_loss += loss.item()
 
     # Print the average training loss for this epoch
-    checkpoint_path = "path/to/save/checkpoint.pth"
+    checkpoint_path = "checkpoint"
 
     print("Epoch [{}/{}], Loss: {:.4f}".format(epoch+1, num_epochs, train_loss / len(train_images)))
 
