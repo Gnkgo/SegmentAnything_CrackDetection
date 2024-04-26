@@ -12,9 +12,9 @@ from torchvision.datasets import ImageFolder
 from torchsummary import summary
 
 # Load your wall cracks dataset using OpenCV or Pillow
-data_dir = 'SemanticSegmentationDefects'
-image_dir = 'SemanticSegmentationDefects\ImageDatastore'
-label_dir = 'SemanticSegmentationDefects\PixelLabelDatastore'
+data_dir = 'SemanticsSegmentationScars'
+image_dir = 'SemanticsSegmentationScars/ImageDatastore'
+label_dir = 'SemanticsSegmentationScars/PixelLabelDatastore'
 
 image_paths = [os.path.join(image_dir, f) for f in os.listdir(image_dir)]
 label_paths = [os.path.join(label_dir, f) for f in os.listdir(label_dir)]
