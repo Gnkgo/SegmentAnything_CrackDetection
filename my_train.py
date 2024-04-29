@@ -5,12 +5,12 @@ import torch
 import matplotlib.pyplot as plt
 import torch.nn as nn
 
-from segment_anything import sam_model_registry, SamAutomaticMaskGenerator, SamPredictor
+from segment_anything_local import sam_model_registry, SamAutomaticMaskGenerator, SamPredictor
 from torch import optim
-from segment_anything import SamAutomaticMaskGenerator
+from segment_anything_local import SamAutomaticMaskGenerator
 
 # Load your wall cracks dataset using OpenCV or Pillow
-data_dir = "SemanticsSegmentationScars"
+data_dir = "SemanticSegmentationScars"
 image_dir = os.path.join(data_dir, "ImageDatastore")
 label_dir = os.path.join(data_dir, "PixelLabelDatastore")
 

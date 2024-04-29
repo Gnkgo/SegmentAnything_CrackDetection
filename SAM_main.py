@@ -6,7 +6,7 @@ import matplotlib.pyplot as plt
 import torch.nn as nn
 import torch.optim as optim
 import torchvision.transforms as transforms
-from segment_anything import sam_model_registry, SamAutomaticMaskGenerator, SamPredictor
+from segment_anything_local import sam_model_registry, SamAutomaticMaskGenerator, SamPredictor
 from torch.utils.data import DataLoader
 from torchvision.datasets import ImageFolder
 from torchsummary import summary

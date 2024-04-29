@@ -4,17 +4,17 @@ import torch.optim as optim
 import torchvision.transforms as transforms
 from torch.utils.data import DataLoader
 from torchvision.datasets import ImageFolder
-from sam.models import sam_model_registry
+from segment_anything_local import sam_model_registry
 
 # Define the paths to the crack images and their labels
-data_path = "SemanticSegmentationDefects"
+data_path = "SemanticSegmentationScars"
 image_path = data_path + "/ImageDatastore"
 label_path = data_path + "/PixelLabelDatastore"
 
 # Load the pre-trained model checkpoint file
-sam_checkpoint = 'sam_vit_h_4b8939.plt'
+sam_checkpoint = 'sam_vit_h_4b8939.pth'
 # Set the device to use for computations
-device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
+device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 sam_model = torch.load(sam_checkpoint)
 
@@ -23,10 +23,10 @@ sam = sam_model_registry[model_type](checkpoint=sam_checkpoint)
 sam.to(device=device)
 
 # Remove the last classification layer of the pre-trained model to get feature vectors
-new_model = nn.Sequential(*list(sam_model.children())[:-1])
+new_model = nn.Sequential(*list(sam.children())[:-1])
 
 # Define the transformations to apply to the images
-transform = transforms.Compose([transforms.Resize((224, 224)), transforms.ToTensor()])
+transform = transforms.Compose([transforms.Resize((1024, 1024)), transforms.ToTensor()])
 
 # Load the wall crack images and their labels
 dataset = ImageFolder(image_path, transform=transform)
