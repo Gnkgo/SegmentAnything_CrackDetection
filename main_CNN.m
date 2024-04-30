@@ -2,13 +2,13 @@ clc
 clear
 close all
 %% Train
-imageDir = fullfile('SemanticSegmentationDefects/ImageDatastore');
-labelDir = fullfile('SemanticSegmentationDefects/PixelLabelDatastore');
+imageDir = fullfile('SemanticSegmentationScars/ImageDatastore');
+labelDir = fullfile('SemanticSegmentationScars/PixelLabelDatastore');
 
 imds = imageDatastore(imageDir);
 
 classNames = ["C1" "C2" "C3"];
-labelIDs = [1  2 3];
+labelIDs = [1  2  3];
 imageSize = [256 256 3];
 
 pxds = pixelLabelDatastore(labelDir, classNames, labelIDs);
@@ -35,8 +35,8 @@ options2 = trainingOptions('adam', ...
 net = trainNetwork(ds,layers2,options2);
 save('netColor.mat','net');
 %% Test
-I = imread('SemanticSegmentationDefects/ImageDatastore/176.jpg');
-GT1=imread('SemanticSegmentationDefects/PixelLabelDatastore/176.png');
+I = imread('SemanticSegmentationScars/ImageDatastore/176.jpg');
+GT1=imread('SemanticSegmentationScars/PixelLabelDatastore/176.png');
 
 [C,scores] = semanticseg(I,net);
 %297,176,68, 41, 10, 56, 710

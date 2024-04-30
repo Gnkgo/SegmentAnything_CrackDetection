@@ -12,17 +12,18 @@ image_path = data_path + "/ImageDatastore"
 label_path = data_path + "/PixelLabelDatastore"
 
 # Load the pre-trained model checkpoint file
-sam_checkpoint = 'sam_vit_h_4b8939.pth'
+sam_checkpoint = 'sam_vit_b_01ec64.pth'
 # Set the device to use for computations
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 sam_model = torch.load(sam_checkpoint)
 
-model_type = "vit_h"
+model_type = "vit_b"
 sam = sam_model_registry[model_type](checkpoint=sam_checkpoint)
 sam.to(device=device)
 
 # Remove the last classification layer of the pre-trained model to get feature vectors
+#new_model = nn.Sequential(*list(sam_model.children())[:-1])
 new_model = nn.Sequential(*list(sam.children())[:-1])
 
 # Define the transformations to apply to the images
@@ -33,7 +34,7 @@ dataset = ImageFolder(image_path, transform=transform)
 labels = ImageFolder(label_path, transform=transform)
 
 # Create the data loader for the wall crack images and their labels
-data_loader = DataLoader(dataset, batch_size=32, shuffle=True)
+data_loader = DataLoader(dataset, batch_size=4, shuffle=True)
 
 # Define the loss function and optimizer
 criterion = nn.CrossEntropyLoss()
@@ -51,7 +52,12 @@ for epoch in range(10):
         optimizer.zero_grad()
 
         # Forward pass
-        outputs = new_model(images)
+        
+        
+        #Make boxes and masks
+        boxes, masks = sam(images)
+        
+        outputs = new_model(images, boxes, masks)
         loss = criterion(outputs, labels)
 
         # Backward pass and optimize

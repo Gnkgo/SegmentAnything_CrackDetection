@@ -14,6 +14,7 @@ data_dir = "SemanticSegmentationScars"
 image_dir = os.path.join(data_dir, "ImageDatastore")
 label_dir = os.path.join(data_dir, "PixelLabelDatastore")
 
+
 image_paths = [os.path.join(image_dir, f) for f in os.listdir(image_dir)]
 label_paths = [os.path.join(label_dir, f) for f in os.listdir(label_dir)]
 
@@ -36,6 +37,12 @@ sam.to(device=device)
 # Freeze the weights of all layers except for the last layer
 for param in sam.parameters():
     param.requires_grad = False
+
+print(sam)
+
+# Replace the last layer of the model with a new linear layer with the appropriate number of output channels
+in_channels = sam
+
 
 in_channels = sam.cls_token.size(-1)
 out_channels = num_classes

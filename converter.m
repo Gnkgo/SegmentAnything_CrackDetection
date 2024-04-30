@@ -7,7 +7,7 @@ clear
 %         im = rgb2gray(im);
 im = im2uint8(im);
 im=imresize(im,[256 256]);
-imwrite(im,['Height/',num2str(i0) ,'.jpg'])
+imwrite(im,['Height/',num2str(i0) ,'.png'])
   end
   
  for i0=1:5000 
@@ -22,17 +22,17 @@ im1=imresize(im1,[256 256]);
 im2=imresize(im2,[256 256]);
 im3=imresize(im3,[256 256]);
 
-imwrite(im1,['SegL1/',num2str(i0) ,'.jpg'])
-imwrite(im2,['SegL2/',num2str(i0) ,'.jpg'])
-imwrite(im3,['SegL3/',num2str(i0) ,'.jpg'])
+imwrite(im1,['SegL1/',num2str(i0) ,'.png'])
+imwrite(im2,['SegL2/',num2str(i0) ,'.png'])
+imwrite(im3,['SegL3/',num2str(i0) ,'.png'])
 
  end 
   
 for i0=1:1250 
       i0
-     iname = sprintf('SemanticSegmentationDefects/PixelLabelDatastore/Label_%03d.png', i0);
+     iname = sprintf('SemanticSegmentationScars/PixelLabelDatastore/Label_%03d.png', i0);
     im = imread(iname);
 %         im = rgb2gray(im);
 im=imresize(im,[256 256]);
-imwrite(im,['SemanticSegmentationDefects/PixelLabelDatastore/',num2str(i0) ,'.png'])
+imwrite(im,['SemanticSegmentationScars/PixelLabelDatastore/',num2str(i0) ,'.png'])
   end

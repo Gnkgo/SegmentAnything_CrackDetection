@@ -37,7 +37,7 @@ sam.to(device=device)
 
 mask_generator = SamAutomaticMaskGenerator(sam)
 
-# image = cv2.imread('SemanticSegmentationDefects\ImageDatastore\IMG128.JPG')
+# image = cv2.imread('SemanticSegmentationScars\ImageDatastore\IMG128.JPG')
 # image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
 
 
