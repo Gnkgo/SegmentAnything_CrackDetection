@@ -34,7 +34,7 @@ dataset = ImageFolder(image_path, transform=transform)
 labels = ImageFolder(label_path, transform=transform)
 
 # Create the data loader for the wall crack images and their labels
-data_loader = DataLoader(dataset, batch_size=4, shuffle=True)
+data_loader = DataLoader(dataset, batch_size=1, shuffle=True)
 
 # Define the loss function and optimizer
 criterion = nn.CrossEntropyLoss()
@@ -55,9 +55,9 @@ for epoch in range(10):
         
         
         #Make boxes and masks
-        boxes, masks = sam(images)
+        #boxes, masks = sam(images)
         
-        outputs = new_model(images, boxes, masks)
+        outputs = new_model(images)
         loss = criterion(outputs, labels)
 
         # Backward pass and optimize
